@@ -18,7 +18,6 @@ public class PlanetController {
 
     @PostMapping
     public ResponseEntity<Planet> create(@RequestBody Planet planet) {
-        System.out.println(planet.getTerrain());
         Planet createdPlanet = planetService.create(planet);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPlanet);
