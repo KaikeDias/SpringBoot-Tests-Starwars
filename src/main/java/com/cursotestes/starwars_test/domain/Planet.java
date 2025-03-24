@@ -2,6 +2,7 @@ package com.cursotestes.starwars_test.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "planets")
@@ -21,5 +22,10 @@ public class Planet {
         this.name = name;
         this.climate = climate;
         this.terrain = terrain;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(obj, this);
     }
 }
