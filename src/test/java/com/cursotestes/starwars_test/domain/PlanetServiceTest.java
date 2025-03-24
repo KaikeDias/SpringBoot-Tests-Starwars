@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static com.cursotestes.starwars_test.common.PlanetConstants.PLANET;
+import static com.cursotestes.starwars_test.common.PlanetConstants.INVALID_PLANET;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,5 +34,12 @@ public class PlanetServiceTest {
         Planet sut = planetService.create(PLANET);
 
         assertThat(sut).isEqualTo(PLANET);
+    }
+
+    @Test
+    public void createPlanet_WithInvalidData_ThrowsException() {
+        when(planetRepository.save(INVALID_PLANET)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> planetService.create(INVALID_PLANET)).isInstanceOf(RuntimeException.class);
     }
 }
